@@ -10,12 +10,12 @@
   <!-- / copyrights -->
 
   <!-- JavaScript Libraries -->
-  <script src="frontend/lib/jquery/jquery.min.js"></script>
-  <script src="frontend/lib/bootstrap/js/bootstrap.min.js"></script>
-  <script src="frontend/lib/php-mail-form/validate.js"></script>
+  <script src="/projet/frontend/lib/jquery/jquery.min.js"></script>
+  <script src="/projet/frontend/lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/projet/frontend/lib/php-mail-form/validate.js"></script>
 
   <!-- Template Main Javascript File -->
-  <script src="frontend/js/main.js"></script>
+  <script src="/projet/frontend/js/main.js"></script>
 
 </body>
 </html>

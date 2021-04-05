@@ -9,7 +9,9 @@
             <table>
                <td> <input type="text" id="recherche" class="form-control" placeholder="pomme"> </td>
                <td> <input type="integer" id="nblignes" class="form-control" placeholder="10"> </td>
-               <td> <button type="button" class="btn btn-primary" onclick="editligne(-1)"> Rechercherer</button> </td>
+               <td> <button type="button" class="btn btn-primary" onclick="editligne(-1)"> Rechercher</button> </td>
+               <td> <button type="button" class="btn btn-primary ml-5 mr-2" onclick="movePage(-1)">Page précedente</button>    <span id ="CurrentPage" class="text-secondary font-weight-bold">1</span>           
+                <button type="button" class="btn btn-primary" onclick="movePage(1)">Page suivante</button> </td>
     </div>
 
     <div class="alimenttable">
@@ -20,6 +22,7 @@
                 <td> Lipides(g/100g) </td>
                 <td> Glucides(g/100g) </td>
                 <td> Protéines(g/100g) </td>
+                
             </thead>
             <tbody id="tableau-aliments">
             </tbody>
@@ -53,7 +56,7 @@
             </tr>
             <tr>
                 <th></th>
-                <td><button type="button" id="Submit" value="Ajouter/editer" onclick="editligne(-2)">ajouter</button></td>
+                <td><button type="button"  class='btn btn-primary' id="Submit" value="Ajouter/editer" onclick="editligne(-2)">ajouter</button></td>
             </tr>    
             
             </table>
@@ -72,9 +75,23 @@ function Aliment(i,n,c,l,g,p){
 }
 
 let TabAli =new Array();
-$(document).ready(function(){
-    //editligne(-1);
-});
+let currentPage=1;
+let nbPages=1;
+
+function movePage(nb){
+    currentPage+= nb;
+    if (currentPage<1){
+        currentPage= 1;
+    }
+    else{
+        console.log(currentPage);
+    console.log(nbPages);
+    editligne(-1);
+    }
+    
+}
+
+
 
 function deleteligne(value){ // value est ici l'identifiant de l'aliment dans la db, id de la ligne du tableau et de TabAli
     //suppression dans TabAli
@@ -91,8 +108,7 @@ function deleteligne(value){ // value est ici l'identifiant de l'aliment dans la
             url: "backend/api/aliments/delete/index.php", 
             method: "POST",
             data: {idplat: value},
-            success: function(result){
-                console.log(result);    
+            success: function(result){ 
             },
             error: function(err){
                 alert("Une erreur s'est produite");
@@ -104,6 +120,29 @@ function deleteligne(value){ // value est ici l'identifiant de l'aliment dans la
     //suppression dans la base de données 
     //AJAX suppression de l'aliment d'id value dans la db
 }
+
+function consomme(id){
+    //alert("vous avez mangé "+nom);
+    console.log(id);
+    var today = new Date();
+    var date = prompt("Choisir une date :", "YYYY-MM-JJ");
+    var quantite = prompt("Choisir une quantité en g:", 100);
+    var userid = <?php echo $_SESSION["userid"];?>;
+    $.ajax({
+        
+        url: "backend/api/consomme/add/index.php", 
+        method: "POST",
+        data: {quantite: quantite, idplat: id,date: date,userid: userid},
+    success: function(result){           
+            alert("Le plat a bien été ajouté à votre journal !");   
+    },
+    error: function(err){
+        alert("Une erreur s'est produite");
+        console.log(err);
+    }
+});
+}
+
 
 function editligne(id){//remplissage du tableau 
         // AJAX  récupération des aliments dans la base de donnée et les mets
@@ -119,17 +158,23 @@ function editligne(id){//remplissage du tableau
         
             url: "backend/api/aliments/get", 
             method: "GET",
-            data: {recherche: recherche, nblignes: nblignes},
+            data: {recherche: recherche, nblignes: nblignes,currentPage: currentPage},
             success: function(result){
-            console.log(result);
-            for (i=0;i<result.length;i++){
+                
+            nbPages=result[0];
+            var element = document.getElementById("CurrentPage");
+            element.innerHTML=currentPage+"/"+nbPages;
+
+
+            for (i=1;i<result.length;i++){
                 document.getElementById("tableau-aliments").innerHTML += 
             "<tr id="+result[i][0]+"> <td> "+result[i][1]+
             "</td> <td>"+result[i][2]+
             "</td> <td>"+result[i][3]+
             "</td> <td>"+result[i][4]+
             "</td> <td>"+result[i][5]+
-            "</td> </tr>" ;
+            "</td> <td> <button type='button' class='btn-primary' onclick='consomme(\"" + result[i][0] + "\")'>Consommer</button></td></tr>";
+            
             aliment = new Aliment(result[i][0],result[i][1],result[i][2],result[i][3],result[i][4],result[i][5]);
             TabAli.push(aliment);
             }
@@ -164,7 +209,7 @@ function editligne(id){//remplissage du tableau
                 "</td> <td>"+g+
                 "</td> <td>"+l+
                 "</td> <td>"+p+
-                "</td> <td> <button onclick='deleteligne("+i+")'>Supprimer</button></td></tr>"
+                "</td> <td><button type='button'class='btn-primary' onclick='consomme(\"" + i + "\")'>Consommer</button> <button class='btn-primary' onclick='deleteligne("+i+")'>Supprimer</button></td></tr>"
                  ;
     
             },

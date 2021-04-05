@@ -32,6 +32,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+    <script src="https://blog.niap3d.com/download/jsGraphDisplay/jsGraphDisplay.1.0.js"></script>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
@@ -47,6 +48,7 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="frontend/css/styles.css" rel="stylesheet" />
+        
     </head>
 
 
@@ -66,7 +68,7 @@
                             </div>";
                     echo "<div>
                             <form action='index.php' method='POST' >
-                            <input class=\"btn-primary\" type='submit' value='Déconnexion' name='deconnexion'>
+                            <input class=\"btn btn-primary\" type='submit' value='Déconnexion' name='deconnexion'>
                             </form>
                         </div>";
                 }

@@ -1,0 +1,24 @@
+api/accueil/get POST Choix des données à afficher pour l'accueil
+
+
+api/aliments/add POST ajoute un aliment a la BDD
+
+api/aliments/delete POST supprime un aliment de la BDD
+
+api/aliments/get GET retourne les aliments de la page en cours
+
+api/aliments/update POST modifie un aliment de la BDD
+
+
+api/consomme/add POST ajoute un element consommé à la BDD
+
+api/consomme/delete POST supprime la consommation d'un élément de la BDD
+
+api/consomme/get POST retourne les aliments consommés par l'utilisateur
+
+
+api/user/add POST crée un nouvel utilisateur
+
+api/user/get POST verifie si les données rentrées par l'utilisateur sont valides (mot de passe valide)
+
+api/user/update POST modifie les informations d'un utilisateur
