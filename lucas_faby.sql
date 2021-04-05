@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 30 mars 2021 à 16:54
+-- Généré le : lun. 05 avr. 2021 à 19:34
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
@@ -53,13 +53,28 @@ INSERT INTO `connexion` (`id`, `login`, `password`, `pseudo`) VALUES
 
 DROP TABLE IF EXISTS `consomme`;
 CREATE TABLE IF NOT EXISTS `consomme` (
+  `idconsomme` int(11) NOT NULL AUTO_INCREMENT,
   `idclient` int(11) NOT NULL,
   `idplat` int(11) NOT NULL,
   `quantite` int(11) NOT NULL,
   `date` date NOT NULL,
+  PRIMARY KEY (`idconsomme`),
   KEY `plat` (`idplat`),
   KEY `client` (`idclient`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `consomme`
+--
+
+INSERT INTO `consomme` (`idconsomme`, `idclient`, `idplat`, `quantite`, `date`) VALUES
+(4, 1, 1, 100, '2021-11-20'),
+(6, 1, 4, 333, '2021-04-02'),
+(8, 1, 29, 100, '2021-12-12'),
+(9, 5, 7, 150, '2021-05-04'),
+(10, 5, 1107, 80, '2021-05-04'),
+(11, 5, 813, 20, '2021-05-04'),
+(12, 5, 947, 200, '2021-04-05');
 
 -- --------------------------------------------------------
 
@@ -76,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `plat` (
   `glucides` double NOT NULL,
   `proteines` double NOT NULL,
   PRIMARY KEY (`idplat`)
-) ENGINE=InnoDB AUTO_INCREMENT=1488 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=1487 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `plat`
@@ -1587,15 +1602,17 @@ CREATE TABLE IF NOT EXISTS `user` (
   `age` int(11) NOT NULL,
   `intensite` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Déchargement des données de la table `user`
 --
 
 INSERT INTO `user` (`id`, `login`, `password`, `sexe`, `age`, `intensite`) VALUES
-(1, 'lucas', 'pwd', 1, 23, 1),
-(3, 'der', 'tztz', 1, 24, 1);
+(1, 'lucas', 'PWD', 2, 21, 2),
+(3, 'der', 'tztz', 1, 24, 1),
+(4, 'gfail', '111', 1, 45, 1),
+(5, 'arthurfabyd', 'arthurlebg2', 2, 21, 1);
 
 -- --------------------------------------------------------
 
